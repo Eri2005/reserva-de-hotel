@@ -12,6 +12,9 @@ public class Reserva {
 
 	private static SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
 	
+	
+	// Agora delegar a logica de validação da reserva para a classe Reserva
+	
 	public Reserva(Integer numeroQuarto, Date entrada, Date saida) {
 		this.numeroQuarto = numeroQuarto;
 		this.entrada = entrada;
@@ -44,9 +47,26 @@ public class Reserva {
 		return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
 	}
 
-	public void atualizarDatas(Date entrada, Date saida) {
+	public String atualizarDatas(Date entrada, Date saida) {
+		
+		// Verificar o momento de atualizar as datas se estao no Passado (anterior a data atual)
+		Date agora = new Date();
+		if (entrada.before(agora) || saida.before(agora)) {
+			return "As datas da reserva para atualização devem ser datas futuras";
+			
+		// Verificando se a data de entrada não e posterior a data de saida
+		} 
+		if (!saida.after(entrada)) {
+			return "Error na Reserva: data de saida deve ser posterior a data de entrada";
+			
+		}
+		
 		this.entrada = entrada;
 		this.saida = saida;
+		
+		// Esse return é o criterio de quando a logica nao retornar nenhum erro
+		// Se de algum erro vai ficar na logica acima
+		return null;
 	}
 	
 	@Override
