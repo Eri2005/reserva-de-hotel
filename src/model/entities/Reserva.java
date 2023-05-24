@@ -61,45 +61,26 @@ public class Reserva {
 		return saida;
 	}
 	
-	// Esse método estara usando uma formula do Java 7 para calculo diferenças entre Datas
-	// Depois mudar conforme o Java 8 (LocaDate, LocalDateTime, Instant)
 	public long duracao() {
 		// Vai trazer a diferenca entre as datas em milisegundos
 		long  diferenca = saida.getTime() - entrada.getTime();
-		
-		// Convertendo o milisegundos em dias
+
 		return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
 	}
 
 	public void atualizarDatas(Date entrada, Date saida) {
-		
-		// Verificar o momento de atualizar as datas se estao no Passado (anterior a data atual)
+
 		Date agora = new Date();
 		if (entrada.before(agora) || saida.before(agora)) {
 			
-			/*
-			 * Agora para lança uma execeção caso a condição ocorra
-			 * Tem que colocar a palavra throw 
-			 * E na frente tem que instanciar uma exceção
-			 * IllegalArgumentException => É uma classe do Java de quando os argumentos passado para o método são Invalidos
-			 *  Vai mostrar um erro ExcecaoDominio
-			 *  Para resolver tenho que colocar ele na chamada desse método "throws ExcecaoDominio"
-			 *  public void atualizarDatas(Date entrada, Date saida) {
-			 *  public void atualizarDatas(Date entrada, Date saida) throws ExcecaoDominio {
-			 *  
-			 *  Assim esse método pode lançar uma Exceção
-			 */
 			throw new ExcecaoDominio("As datas da reserva para atualização devem ser datas futuras");
-			
-		// Verificando se a data de entrada não e posterior a data de saida
+
 		} 
 		if (!saida.after(entrada)) {
 			throw new ExcecaoDominio("Error na Reserva: data de saida deve ser posterior a data de entrada");
 			
 		}
 		
-		// Passando pelo o dois IF's
-		// Ela vai cair nessa logica de atualizar as datas
 		this.entrada = entrada;
 		this.saida = saida;
 		
