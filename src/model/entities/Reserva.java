@@ -14,28 +14,7 @@ public class Reserva {
 
 	private static SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
 	
-	
-	// Agora delegar a logica de validação da reserva para a classe Reserva
-	
 	public Reserva(Integer numeroQuarto, Date entrada, Date saida) {
-		
-		/*
-		 *  Colocando o tratamento de excecao no construtor caso a data de "saida" for depois da date de "entrada"
-		 *  Isso se chama programação Defensiva (boa prática)
-		 *  Vai da o mesmo erro de de lancamento de excecao
-		 *  É só adicionar no construtor
-		 *  
-		 *  public Reserva(Integer numeroQuarto, Date entrada, Date saida) {
-		 *  public Reserva(Integer numeroQuarto, Date entrada, Date saida) throws ExcecaoDominio {
-		 *  
-		 *  Esse erro é ocasionado por causa que na classe ExcecaoDominio
-		 *  Foi dado como extends "Exception"
-		 *  
-		 *  Se usar o "RunTimeException" não será necessario declarar "throws ExcecaoDominio"
-		 *  Colocarei com RunTimexception
-		 */
-		
-		
 		if (!saida.after(entrada)) {
 			throw new ExcecaoDominio("Error na Reserva: data de saida deve ser posterior a data de entrada");
 			
@@ -73,7 +52,7 @@ public class Reserva {
 		Date agora = new Date();
 		if (entrada.before(agora) || saida.before(agora)) {
 			
-			throw new ExcecaoDominio("As datas da reserva para atualização devem ser datas futuras");
+			throw new ExcecaoDominio("As datas da reserva para atualizaÃ§Ã£o devem ser datas futuras");
 
 		} 
 		if (!saida.after(entrada)) {
